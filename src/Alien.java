@@ -1,16 +1,18 @@
+import javax.swing.*;
 import java.awt.*;
 
-public class Alien implements Paintable {
+public class Alien {
     private int x;
     private int y;
     private int width;
     private int height;
 
-    public Alien(int x, int y, int width, int height) {
+    public Alien(int x, int y,int width,int height) {
         this.x = x;
         this.y = y;
         this.width=width;
         this.height=height;
+
     }
 
     public int getWidth() {
@@ -47,7 +49,6 @@ public class Alien implements Paintable {
 
 
 
-    @Override
     public void paint(Graphics graphics) {
         graphics.setColor(Color.green);
         graphics.fillRect(this.x,this.y,this.width,this.height);
@@ -55,8 +56,6 @@ public class Alien implements Paintable {
 
     }
 
-    @Override
-    public void move(int direction) {
 
-    }
+
 }

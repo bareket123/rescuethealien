@@ -1,6 +1,8 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class GameMain extends JFrame {
+    //private ImageIcon backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg");
     public static void main(String[] args) {
       GameMain gameMain = new GameMain();
 
@@ -31,19 +33,29 @@ public class GameMain extends JFrame {
         this.setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         this.setLocationRelativeTo(null);
         this.setLayout(null);
-        this.setTitle("Rescue player");
+        this.setTitle("Rescue Alien");
         this.setResizable(false);
+
         FirstLevel firstLevel= new FirstLevel();
         firstLevel.setBounds(0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
         this.add(firstLevel);
         PlayerMovement playerMovement = new PlayerMovement(firstLevel.getPlayer());
         this.addKeyListener(playerMovement);
-        //SecondLevel secondLevel = new SecondLevel();
-       // PlayerMovement playerMovement2=new PlayerMovement(secondLevel.getPlayer());
-        //this.addKeyListener(playerMovement2);
+        SecondLevel secondLevel=new SecondLevel(firstLevel.getPlayer());
+        secondLevel.setBounds(0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
+        this.add(secondLevel);
+        /*PlayerMovement playerMovement1=new PlayerMovement(secondLevel.getPlayer());
+        this.addKeyListener(playerMovement1);
+
+
+        */
+
+
+
 
 
 
 
     }
+
 }

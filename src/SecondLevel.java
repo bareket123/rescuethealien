@@ -3,24 +3,28 @@ import java.awt.*;
 import java.util.Random;
 
 public class SecondLevel extends JPanel {
-    Player player;
+   private Player player;
     private Enemy enemy1;
     private Enemy enemy2;
     private Enemy enemy3;
     private Enemy enemy4;
     private Alien alien;
 
-    public SecondLevel() {
+    public SecondLevel(Player player) {
+
         this.setBackground(Color.blue);
         this.setDoubleBuffered(true);
-        setBounds(0,0,1000,700);
-        this.player = new Player(Constants.PLAYER_X-1, Constants.PLAYER_Y-2, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
+
+        setBounds(0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
+       // this.player = new Player(Constants.PLAYER_X-1, Constants.PLAYER_Y-2, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
+        this.player=player;
+        this.player.setX(Constants.PLAYER_X);
         this.enemy1 = new Enemy(Constants.ENEMY1_X, Constants.ENEMY1_Y, Constants.ENEMY1_SIZE * 2, Constants.ENEMY1_SIZE * 2);
         this.enemy2 = new Enemy(Constants.ENEMY2_X, Constants.ENEMY2_Y, Constants.ENEMY2_SIZE + 2, Constants.ENEMY2_SIZE + 2);
         this.enemy3 = new Enemy(Constants.ENEMY3_X, Constants.ENEMY3_Y, Constants.ENEMY3_SIZE + 10, Constants.ENEMY3_SIZE + 10);
         this.enemy4 = new Enemy(Constants.ENEMY4_X, Constants.ENEMY4_Y, Constants.ENEMY4_SIZE - 10, Constants.ENEMY4_SIZE - 10);
         this.alien = new Alien(Constants.ALIEN_X, Constants.ALIEN_Y, Constants.ALIEN_SIZE, Constants.ALIEN_SIZE);
-         ///mainGameLoop();
+        //mainGameLoop();
     }
 
     @Override
@@ -38,7 +42,7 @@ public class SecondLevel extends JPanel {
 
     public void mainGameLoop() {
         new Thread(() -> {
-            while (true) {
+            while (true){
 
                 try {
                     this.enemy1.move(random());
@@ -46,6 +50,7 @@ public class SecondLevel extends JPanel {
                     this.enemy3.move(random());
                     this.enemy4.move(random());
                     startOverAfterCollision();
+                    isWinner();
                     repaint();
                     Thread.sleep(Constants.FRAMES_SPEED);
                 } catch (InterruptedException e) {
@@ -66,6 +71,7 @@ public class SecondLevel extends JPanel {
         Rectangle enemyRectangle = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
         boolean collision = playerRectangle.intersects(enemyRectangle);
         return collision;
+
 
     }
 
@@ -144,5 +150,17 @@ public class SecondLevel extends JPanel {
         }
 
 
+
+    }
+    private boolean isWinner(){
+        if (playerMeetAlien(player,alien)){
+            JFrame victoryButton = new JFrame();
+            victoryButton.setLocationRelativeTo(null);
+
+            return true;
+
+
+        }
+        return false;
     }
 }

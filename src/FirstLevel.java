@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-import java.util.Timer;
+
 
 public class FirstLevel extends JPanel implements ActionListener {
     private Player player;
@@ -12,43 +12,45 @@ public class FirstLevel extends JPanel implements ActionListener {
     private Enemy enemy3;
     private Enemy enemy4;
     private Alien alien;
-    private ImageIcon alien2=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/alien.gif");
+    private ImageIcon alien2=new ImageIcon("images/alien.gif");
     private int sceneId;
     private JButton nextLevel;
-    private Image backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg").getImage();
+    private Image backGround=new ImageIcon("images/space.jpg").getImage();
 
-    public FirstLevel(){
+    public FirstLevel() {
         // Image backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg").getImage();
         this.setDoubleBuffered(true);
-        this.player = new Player(Constants.PLAYER_X,Constants.PLAYER_Y,Constants.PLAYER_WIDTH,Constants.PLAYER_HEIGHT);
-        this.enemy1= new Enemy(Constants.ENEMY1_X,Constants.ENEMY1_Y,Constants.ENEMY1_SIZE,Constants.ENEMY1_SIZE);
-        this.enemy2=new Enemy(Constants.ENEMY2_X,Constants.ENEMY2_Y,Constants.ENEMY2_SIZE,Constants.ENEMY2_SIZE);
-        this.enemy3=new Enemy(Constants.ENEMY3_X,Constants.ENEMY3_Y,Constants.ENEMY3_SIZE,Constants.ENEMY3_SIZE);
-        this.enemy4=new Enemy(Constants.ENEMY4_X,Constants.ENEMY4_Y,Constants.ENEMY4_SIZE,Constants.ENEMY4_SIZE);
+        this.player = new Player(Constants.PLAYER_X, Constants.PLAYER_Y, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
+        this.enemy1 = new Enemy(Constants.ENEMY1_X, Constants.ENEMY1_Y, Constants.ENEMY1_SIZE, Constants.ENEMY1_SIZE);
+        this.enemy2 = new Enemy(Constants.ENEMY2_X, Constants.ENEMY2_Y, Constants.ENEMY2_SIZE, Constants.ENEMY2_SIZE);
+        this.enemy3 = new Enemy(Constants.ENEMY3_X, Constants.ENEMY3_Y, Constants.ENEMY3_SIZE, Constants.ENEMY3_SIZE);
+        this.enemy4 = new Enemy(Constants.ENEMY4_X, Constants.ENEMY4_Y, Constants.ENEMY4_SIZE, Constants.ENEMY4_SIZE);
         //this.alien=new Alien(Constants. ALIEN_X,Constants. ALIEN_Y,Constants.ALIEN_SIZE,Constants.ALIEN_SIZE);
-        this.sceneId=Constants.FIRST_LEVEL;
-         mainGameLoop();
+        this.sceneId = Constants.FIRST_LEVEL;
+        mainGameLoop();
     }
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-       // g.drawImage(backGround,0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT,null);
-      //  moveToNextLevel();
+       // this.sceneId=1;
+        //  moveToNextLevel();
         try {
             switch (this.sceneId){
-                case 1:
+                case Constants.FIRST_LEVEL:
+                    g.drawImage(backGround,0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT,null);
                     this.player.paint(g);
                     this.enemy1.paint(g);
                     this.enemy2.paint(g);
                     this.enemy3.paint(g);
                     this.enemy4.paint(g);
                     g.drawImage(alien2.getImage(),Constants.ALIEN_X,Constants.ALIEN_Y,Constants.ALIEN_SIZE,Constants.ALIEN_SIZE,null);
+
                     break;
-                case 2:
-                     nextLevel.addActionListener(this);
-                     SecondLevel secondLevel = new SecondLevel();
+                case Constants.SECOND_LEVEL:
+                     SecondLevel secondLevel = new SecondLevel(this.player);
+                     secondLevel.mainGameLoop();
                      this.add(secondLevel);
+                     //nextLevel.addActionListener(this);
                     break;
             }
         }catch (Exception e){
@@ -64,17 +66,21 @@ public class FirstLevel extends JPanel implements ActionListener {
     public void mainGameLoop() {
         new Thread(() -> {
             while (true) {
-                Timer timer = new Timer();
-                timer.purge();
+                repaint();
                 try {
+                    if (!(this.sceneId==Constants.SECOND_LEVEL)){
+                        this.enemy1.move(random());
+                        this.enemy2.move(random());
+                        this.enemy3.move(random());
+                        this.enemy4.move(random());
+                        startOverAfterCollision();
+                        moveToNextLevel();
+                    }else{
+                       break;
+                    }
 
-                    this.enemy1.move(random());
-                    this.enemy2.move(random());
-                    this.enemy3.move(random());
-                    this.enemy4.move(random());
-                    startOverAfterCollision();
-                    moveToNextLevel();
-                    repaint();
+
+
                     Thread.sleep(Constants.FRAMES_SPEED);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -123,28 +129,31 @@ public class FirstLevel extends JPanel implements ActionListener {
 
     }public void moveToNextLevel(){
         if (playerMeetAlien(this.player,this.alien2)){
+            this.sceneId=Constants.SECOND_LEVEL;
             //JFrame winButton = new JFrame();
             //winButton.setLocationRelativeTo(null);
             //JOptionPane.showMessageDialog(winButton, "You are winner!!, press 'OK' TO MOVE TO NEXT LEVEL " );
             //this.player.setX(Constants.ENEMY1_X);
             //this.player.setY(Constants.ENEMY1_Y);
-            nextLevel=new JButton("Next Level");
+
+           /* nextLevel=new JButton("Next Level");
             nextLevel.setVisible(true);
             nextLevel.setLayout(null);
             nextLevel.setBounds(400,300,200,50);
-            nextLevel.setFont(new Font("",Font.BOLD,20));
+            nextLevel.setFont(new Font("Comic con",Font.BOLD,20));
             nextLevel.setForeground(Color.BLUE);
             nextLevel.setBackground(Color.YELLOW);
             nextLevel.addActionListener(e -> {
-
-              sceneId=2;
-                System.out.println("wakk");
+                System.out.println("checked if pressed");
+                sceneId=2;
               //nextLevel.setEnabled(false);
 
 
            });
             this.add(nextLevel);
 
+
+            */
         }
 
 
@@ -188,6 +197,22 @@ public class FirstLevel extends JPanel implements ActionListener {
 
     public void setEnemy4(Enemy enemy4) {
         this.enemy4 = enemy4;
+    }
+
+    public int getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(int sceneId) {
+        this.sceneId = sceneId;
+    }
+
+    public Alien getAlien() {
+        return alien;
+    }
+
+    public void setAlien(Alien alien) {
+        this.alien = alien;
     }
 
     @Override
