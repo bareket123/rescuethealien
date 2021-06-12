@@ -5,14 +5,16 @@ public class Enemy implements Paintable {
     private int y;
     private int width;
     private int height;
-    private  int speedX = 3;
-    private  int seedY=3;
+    private  int speedX;
+    private  int seedY;
 
     public Enemy(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.speedX=3;
+       this.seedY=3;
     }
 
     public int getX() {

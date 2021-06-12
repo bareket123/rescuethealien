@@ -41,7 +41,7 @@ public class GameMain extends JFrame {
         this.add(firstLevel);
         PlayerMovement playerMovement = new PlayerMovement(firstLevel.getPlayer());
         this.addKeyListener(playerMovement);
-        SecondLevel secondLevel=new SecondLevel(firstLevel.getPlayer());
+       /* SecondLevel secondLevel=new SecondLevel(firstLevel.getPlayer());
         secondLevel.setBounds(0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
         this.add(secondLevel);
         /*PlayerMovement playerMovement1=new PlayerMovement(secondLevel.getPlayer());

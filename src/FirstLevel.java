@@ -43,11 +43,10 @@ public class FirstLevel extends JPanel implements ActionListener {
                     this.enemy2.paint(g);
                     this.enemy3.paint(g);
                     this.enemy4.paint(g);
-                    g.drawImage(alien2.getImage(),Constants.ALIEN_X,Constants.ALIEN_Y,Constants.ALIEN_SIZE,Constants.ALIEN_SIZE,null);
-
+                    g.drawImage(alien2.getImage(),Constants.ALIEN_X,Constants.ALIEN_Y,Constants.ALIEN_SIZE_LEVEL1,Constants.ALIEN_SIZE_LEVEL1,null);
                     break;
                 case Constants.SECOND_LEVEL:
-                     SecondLevel secondLevel = new SecondLevel(this.player);
+                     SecondLevel secondLevel = new SecondLevel(this.player,this.enemy1,this.enemy2,this.enemy3,this.enemy4);
                      secondLevel.mainGameLoop();
                      this.add(secondLevel);
                      //nextLevel.addActionListener(this);
@@ -68,17 +67,15 @@ public class FirstLevel extends JPanel implements ActionListener {
             while (true) {
                 repaint();
                 try {
-                    if (!(this.sceneId==Constants.SECOND_LEVEL)){
-                        this.enemy1.move(random());
-                        this.enemy2.move(random());
-                        this.enemy3.move(random());
-                        this.enemy4.move(random());
-                        startOverAfterCollision();
-                        moveToNextLevel();
-                    }else{
-                       break;
+                    this.enemy1.move(random());
+                    this.enemy2.move(random());
+                    this.enemy3.move(random());
+                    this.enemy4.move(random());
+                    startOverAfterCollision();
+                    if(moveToNextLevel()){
+                        this.sceneId=Constants.SECOND_LEVEL;
+                        break;
                     }
-
 
 
                     Thread.sleep(Constants.FRAMES_SPEED);
@@ -87,8 +84,8 @@ public class FirstLevel extends JPanel implements ActionListener {
                 }
             }
         }).start();
-    }
 
+    }
     public int random() {
         Random random = new Random();
 
@@ -102,7 +99,7 @@ public class FirstLevel extends JPanel implements ActionListener {
 
     }public boolean playerMeetAlien(Player player, ImageIcon alien2){
         Rectangle playerRectangle=new Rectangle(player.getX(),player.getY(),player.getWidth(),player.getHeight());
-        Rectangle alienRectangle = new Rectangle(Constants.ALIEN_X,Constants.ALIEN_Y,Constants.ALIEN_SIZE,Constants.ALIEN_SIZE);
+        Rectangle alienRectangle = new Rectangle(Constants.ALIEN_X,Constants.ALIEN_Y,Constants.ALIEN_SIZE_LEVEL1,Constants.ALIEN_SIZE_LEVEL1);
         boolean meeting=playerRectangle.intersects(alienRectangle);
         return meeting;
 
@@ -127,9 +124,15 @@ public class FirstLevel extends JPanel implements ActionListener {
         }
 
 
-    }public void moveToNextLevel(){
-        if (playerMeetAlien(this.player,this.alien2)){
-            this.sceneId=Constants.SECOND_LEVEL;
+    }public boolean moveToNextLevel(){
+        if (playerMeetAlien(this.player,this.alien2)) {
+            this.player.setX(Constants.PLAYER_X);
+           // this.sceneId=Constants.SECOND_LEVEL;
+            return true;
+        }else
+            return false;
+
+
             //JFrame winButton = new JFrame();
             //winButton.setLocationRelativeTo(null);
             //JOptionPane.showMessageDialog(winButton, "You are winner!!, press 'OK' TO MOVE TO NEXT LEVEL " );
@@ -154,7 +157,7 @@ public class FirstLevel extends JPanel implements ActionListener {
 
 
             */
-        }
+
 
 
     }
@@ -223,3 +226,4 @@ public class FirstLevel extends JPanel implements ActionListener {
         }
     }
 }
+

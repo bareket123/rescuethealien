@@ -25,7 +25,8 @@ public class Constants {
     public static final int ENEMY4_SIZE=40;
     public static final int ALIEN_X=500;
     public static final int ALIEN_Y=50;
-    public static final int ALIEN_SIZE=100;
+    public static final int ALIEN_SIZE_LEVEL1=100;
+    public static final int ALIEN_SIZE_LEVEL2=50;
     public static final int FIRST_LEVEL=1;
     public static final int SECOND_LEVEL=2;
 

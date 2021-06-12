@@ -4,18 +4,20 @@ import java.awt.*;
 public class Alien {
     private int x;
     private int y;
-    private int width;
+    /*private int width;
     private int height;
 
-    public Alien(int x, int y,int width,int height) {
+     */
+     private ImageIcon icon;
+    public Alien(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width=width;
-        this.height=height;
+        icon=new ImageIcon("images/alienlevel2.jpg");
+
 
     }
 
-    public int getWidth() {
+  /*  public int getWidth() {
         return width;
     }
 
@@ -30,6 +32,8 @@ public class Alien {
     public void setHeight(int height) {
         this.height = height;
     }
+
+   */
 
     public int getX() {
         return x;
@@ -49,10 +53,11 @@ public class Alien {
 
 
 
-    public void paint(Graphics graphics) {
-        graphics.setColor(Color.green);
+    public void paint(Graphics graphics,SecondLevel secondLevel) {
+       /* graphics.setColor(Color.green);
         graphics.fillRect(this.x,this.y,this.width,this.height);
-
+*/
+        this.icon.paintIcon(secondLevel,graphics,this.x,this.y);
 
     }
 

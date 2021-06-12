@@ -5,12 +5,13 @@ public class Player implements Paintable {
     private int y;
     private int width;
     private int height;
-    private int speed = 10;
+    private int speed;
     public Player(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.speed=10;
     }
 
     public int getX() {
@@ -46,8 +47,7 @@ public class Player implements Paintable {
     }
 
     public void paint(Graphics graphics) {
-
-        graphics.setColor(Color.black);
+        graphics.setColor(Color.WHITE);
         graphics.fillOval(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 
     }
