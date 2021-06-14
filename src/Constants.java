@@ -29,6 +29,7 @@ public class Constants {
     public static final int ALIEN_SIZE_LEVEL2=50;
     public static final int FIRST_LEVEL=1;
     public static final int SECOND_LEVEL=2;
+    public static final int ENEMY_SPEED = 3;
 
 
 

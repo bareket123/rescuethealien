@@ -89,7 +89,8 @@ public class FirstLevel extends JPanel {
         Random random = new Random();
 
         return random.nextInt(2);
-    }
+   }
+
     public boolean collision(Player player, Enemy enemy){
         Rectangle playerRectangle=new Rectangle(player.getX(),player.getY(),player.getWidth(),player.getHeight());
         Rectangle enemyRectangle=new Rectangle(enemy.getX(),enemy.getY(),enemy.getWidth(),enemy.getHeight());

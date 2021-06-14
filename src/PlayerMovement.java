@@ -31,13 +31,13 @@ public class PlayerMovement implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_LEFT:
-                if (this.player.getX() >= 0) {
+                if (this.player.getX() >= Constants.END_FRAME) {
                     this.player.move(Constants.MOVE_LEFT);
                 }
 
                 break;
             case KeyEvent.VK_UP:
-                if (this.player.getY() - Constants.PLAYER_HEIGHT >= 0)
+                if (this.player.getY() - Constants.PLAYER_HEIGHT+22 >= Constants.END_FRAME)
                     this.player.move(Constants.MOVE_UP);
 
 

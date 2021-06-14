@@ -13,8 +13,8 @@ public class Enemy implements Paintable {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speedX=3;
-       this.seedY=3;
+        this.speedX=Constants.ENEMY_SPEED;
+       this.seedY=Constants.ENEMY_SPEED;
     }
 
     public int getX() {
