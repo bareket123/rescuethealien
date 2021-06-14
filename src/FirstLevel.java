@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 
-public class FirstLevel extends JPanel implements ActionListener {
+public class FirstLevel extends JPanel {
     private Player player;
     private Enemy enemy1;
     private Enemy enemy2;
@@ -14,11 +14,10 @@ public class FirstLevel extends JPanel implements ActionListener {
     private Alien alien;
     private ImageIcon alien2=new ImageIcon("images/alien.gif");
     private int sceneId;
-    private JButton nextLevel;
     private Image backGround=new ImageIcon("images/space.jpg").getImage();
 
     public FirstLevel() {
-        // Image backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg").getImage();
+         Image backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg").getImage();
         this.setDoubleBuffered(true);
         this.player = new Player(Constants.PLAYER_X, Constants.PLAYER_Y, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
         this.enemy1 = new Enemy(Constants.ENEMY1_X, Constants.ENEMY1_Y, Constants.ENEMY1_SIZE, Constants.ENEMY1_SIZE);
@@ -37,7 +36,7 @@ public class FirstLevel extends JPanel implements ActionListener {
         try {
             switch (this.sceneId){
                 case Constants.FIRST_LEVEL:
-                    g.drawImage(backGround,0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT,null);
+                    g.drawImage(backGround,0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT,this);
                     this.player.paint(g);
                     this.enemy1.paint(g);
                     this.enemy2.paint(g);
@@ -218,12 +217,7 @@ public class FirstLevel extends JPanel implements ActionListener {
         this.alien = alien;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==this.nextLevel){
-            System.out.println("sodad");
 
-        }
     }
-}
+
 

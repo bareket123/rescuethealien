@@ -74,7 +74,6 @@ public class Enemy implements Paintable {
 
     @Override
     public void move(int direction) {
-
         this.x+=speedX;
         this.y+=seedY;
         if (y>=Constants.WINDOW_HEIGHT-this.height || y <= Constants.END_FRAME+this.height){

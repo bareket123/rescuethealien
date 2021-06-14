@@ -9,7 +9,7 @@ public class Constants {
     public static final int MOVE_LEFT = 2;
     public static final int MOVE_UP =3;
     public static final int MOVE_DOWN = 4;
-    public static final int FRAMES_SPEED=10;
+    public static final int FRAMES_SPEED=25;
     public static final int END_FRAME=0;
     public static final int ENEMY1_X =500;
     public static final int ENEMY1_Y =200;

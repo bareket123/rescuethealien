@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameMain extends JFrame {
+public class GameMain extends JFrame implements ActionListener {
+    JButton resetButton;
+    FirstLevel firstLevel;
     //private ImageIcon backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg");
     public static void main(String[] args) {
       GameMain gameMain = new GameMain();
@@ -41,6 +45,30 @@ public class GameMain extends JFrame {
         this.add(firstLevel);
         PlayerMovement playerMovement = new PlayerMovement(firstLevel.getPlayer());
         this.addKeyListener(playerMovement);
+        resetButton = new JButton();
+        resetButton.setText("reset");
+        resetButton.setSize(100, 50);
+        resetButton.setLocation(0, 200);
+        resetButton.addActionListener(this);
+        this.add(resetButton);
+        this.setVisible(true);
+
+        /*   @Override
+        public void actionPerformed (ActionEvent e){
+           JButton resetButton = new JButton();
+            resetButton.setText("reset");
+            resetButton.setSize(100, 50);
+            resetButton.setLocation(0, 200);
+            resetButton.addActionListener(this);
+            this.add(resetButton);
+            if (e.getSource() == resetButton) {
+                this.remove(this.gameMain);
+                GameMain game = new GameMain();
+                this.add(game);
+                SwingUtilities.updateComponentTreeUI(this);
+            }
+
+        }
        /* SecondLevel secondLevel=new SecondLevel(firstLevel.getPlayer());
         secondLevel.setBounds(0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
         this.add(secondLevel);
@@ -58,4 +86,15 @@ public class GameMain extends JFrame {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() ==resetButton) {
+            this.remove(this.firstLevel);
+            GameMain game = new GameMain();
+            this.add(game);
+            SwingUtilities.updateComponentTreeUI(this);
+        }
+
+
+    }
 }

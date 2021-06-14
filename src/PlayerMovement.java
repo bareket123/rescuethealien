@@ -44,10 +44,19 @@ public class PlayerMovement implements KeyListener {
                 break;
 
             case KeyEvent.VK_DOWN:
-                if (this.player.getY() <= Constants.WINDOW_HEIGHT - Constants.PLAYER_HEIGHT) {
+                if (this.player.getY() <= Constants.WINDOW_HEIGHT - 70) {
                     this.player.move(Constants.MOVE_DOWN);
+                    break;
                 }
-                break;
+
+
+
+                // if( this.player.getY() - Constants.WINDOW_HEIGHT  => Constants.END_FRAME)
+               // if (this.player.getY() Constants.PLAYER_WIDTH <= Constants.END_FRAME){
+                    //   if (this.player.getY() <= Constants.WINDOW_WIDTH-Constants.PLAYER_WIDTH) {
+
+
+
         }
 
 

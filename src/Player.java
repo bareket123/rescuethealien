@@ -47,29 +47,28 @@ public class Player implements Paintable {
     }
 
     public void paint(Graphics graphics) {
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(Color.black);
         graphics.fillOval(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 
     }
 
     @Override
     public void move(int direction) {
-
         switch (direction) {
             case Constants.MOVE_RIGHT:
-                this.setX(this.getX() + speed);
+               this.x+=speed;
 
                 break;
             case Constants.MOVE_LEFT:
-                this.setX(this.getX() - speed);
+                this.x-=speed;
 
                 break;
             case Constants.MOVE_UP:
-                this.setY(this.getY() - speed);
+                this.y-=speed;
 
                 break;
             case Constants.MOVE_DOWN:
-                this.setY(this.getY() + speed);
+                this.y+=speed;
 
                 break;
         }
