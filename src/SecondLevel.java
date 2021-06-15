@@ -10,11 +10,15 @@ public class SecondLevel extends JPanel  {
     private Enemy enemy2;
     private Enemy enemy3;
     private Enemy enemy4;
+    private Enemy enemy5;
+    private Enemy enemy6;
+    private Enemy enemy7;
     private Alien alien;
-    private Alien alien2;
-    private JButton resetButton;
+    private int sceneId;
+    //private FirstLevel firstLevel;
     //private GameMain gameMain;
     //private JButton resetButton;
+    private ImageIcon winnerIcon=new ImageIcon("images/winner.gif");
     private ImageIcon icon = new ImageIcon("images/spacesecond.gif");
 
     public SecondLevel(Player player, Enemy enemy1, Enemy enemy2, Enemy enemy3, Enemy enemy4) {
@@ -27,23 +31,59 @@ public class SecondLevel extends JPanel  {
         this.enemy2 = enemy2;
         this.enemy3 = enemy3;
         this.enemy4 = enemy4;
+        this.enemy5 = new Enemy(Constants.ENEMY5_X, Constants.ENEMY5_Y, Constants.ENEMY_SIZE,  Constants.ENEMY_SIZE );
+        this.enemy6 = new Enemy(Constants.ENEMY6_X, Constants.ENEMY6_Y,  Constants.ENEMY_SIZE,  Constants.ENEMY_SIZE);
+        this.enemy7 = new Enemy(Constants.ENEMY7_X, Constants.ENEMY7_Y,  Constants.ENEMY_SIZE,  Constants.ENEMY_SIZE);
         this.alien = new Alien(Constants.ALIEN_X, Constants.ALIEN_Y);
-        this.alien2 = new Alien(0, 500);
+        sceneId=Constants.SECOND_LEVEL;
         //mainGameLoop();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        switch (this.sceneId){
+            case Constants.SECOND_LEVEL:
         Image background = icon.getImage();
-        g.drawImage(background, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, null);
+        g.drawImage(background, Constants.END_FRAME, Constants.END_FRAME, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, null);
         this.player.paint(g);
         this.enemy1.paint(g);
         this.enemy2.paint(g);
         this.enemy3.paint(g);
         this.enemy4.paint(g);
-        alien.paint(g, this);
-        alien2.paint(g, this);
+        this.enemy5.paint(g);
+        this.enemy6.paint(g);
+        this.enemy7.paint(g);
+
+                alien.paint(g, this);
+        break;
+            case Constants.RESTART_THE_GAME:
+                FirstLevel firstLevel=new FirstLevel();
+                firstLevel.paint(g);
+                //firstLevel.mainGameLoop();
+                this.add(firstLevel);
+                /*
+                Image winnerBackground=winnerIcon.getImage();
+                g.drawImage(winnerBackground,Constants.END_FRAME,Constants.END_FRAME, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, null);
+                JButton restartButton=new JButton();
+                restartButton.setVisible(true);
+                restartButton.setText("START OVER");
+                restartButton.setSize(1000,800);
+                restartButton.setLocation(500,500);
+                restartButton.addActionListener(e -> {
+
+                    System.exit(0);
+
+                });
+                this.add(restartButton);
+
+
+                 */
+                break;
+
+    }
+
+
 
     }
 
@@ -51,35 +91,50 @@ public class SecondLevel extends JPanel  {
     public void mainGameLoop() {
         new Thread(() -> {
             while (true) {
+                repaint();
                 try {
 
-                    this.enemy1.move(random());
-                    this.enemy2.move(random());
-                    this.enemy3.move(random());
-                    this.enemy4.move(random());
-                    if (this.player.getX() != Constants.PLAYER_X && this.player.getY() != Constants.PLAYER_Y) {
-                        startOverAfterCollision2();
-                        isWinner();
-                      /*  if (playerMeetAlien(player, alien)) {
-                            this.alien.setX(1000);
-                            this.alien.setY(700);
-                            if (playerMeetAlien(player, alien2)) {
+                        this.enemy1.move(random());
+                        this.enemy2.move(random());
+                        this.enemy3.move(random());
+                        this.enemy4.move(random());
+                        this.enemy5.move(random());
+                        this.enemy6.move(random());
+                        this.enemy7.move(random());
+                        if (this.player.getX() != Constants.PLAYER_X && this.player.getY() != Constants.PLAYER_Y) {
+                            startOverAfterCollision2();
+                           if (isWinner()){
+                               this.sceneId=Constants.RESTART_THE_GAME;
+                               this.setVisible(false);
+                             //  break;
 
-                            }
+                              /* JButton restartButton=new JButton();
+                               restartButton.setVisible(true);
+                               restartButton.setText("START OVER");
+                               restartButton.setSize(200,100);
+                               restartButton.setLocation(500,500);
+                               restartButton.addActionListener(e -> {
 
-                       */
+                                   this.sceneId=Constants.RESTART_THE_GAME;
 
+
+                               });
+                               this.add(restartButton);
+
+                               */
+                           }
 
 
                         }
 
-                    repaint();
+
                     Thread.sleep(Constants.FRAMES_SPEED);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+
     }
 
     public int random() {
@@ -156,60 +211,71 @@ public class SecondLevel extends JPanel  {
     }
 
     public void startOverAfterCollision2() {
-        if (collision(player, enemy1) || collision(player, enemy2) || collision(player, enemy3) || collision(player, enemy4)) {
-            JFrame startOverButton = new JFrame();
+        if ( collision(player, enemy1) || collision(player, enemy2) || collision(player, enemy3) ||
+             collision(player, enemy4) || collision(player,enemy5) ||
+             collision(player,enemy6) || collision(player,enemy7) ) {
+             JFrame startOverButton = new JFrame();
             startOverButton.setLocationRelativeTo(null);
             JOptionPane.showMessageDialog(startOverButton, "You are died!!,Please press OK if you want to stars Over");
-            this.player.setX(Constants.PLAYER_X);
-            this.player.setY(Constants.PLAYER_Y);
-            this.enemy1.setX(Constants.ENEMY1_X);
-            this.enemy1.setY(Constants.ENEMY1_Y);
-            this.enemy2.setX(Constants.ENEMY2_X);
-            this.enemy2.setY(Constants.ENEMY1_Y);
-            this.enemy3.setX(Constants.ENEMY3_X);
-            this.enemy3.setY(Constants.ENEMY3_Y);
-            this.enemy4.setX(Constants.ENEMY4_X);
-            this.enemy4.setY(Constants.ENEMY4_Y);
+            //if you dis
+            resetPlayerAndEnemiesAfterCollision();
+
+
 
         }
 
 
     }
 
-    private void isWinner() {
-        if (playerMeetAlien(player, alien)|| playerMeetAlien(player,alien2)) {
-            Object[] options = {"Yes", "No", "ask later"};
-            int n = JOptionPane.showOptionDialog(this, "You Won Do You want to start over", null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-            if (n == 1) {
-                System.exit(0);
-            } else if (n == 0) {
+    private boolean isWinner() {
 
-            }
-
-            }
-
+        if (playerMeetAlien(player, alien)) {
+            return true;
         }
-         /*   JButton resetButton = new JButton();
-            resetButton.setText("Reset");
-            resetButton.setSize(100, 50);
-            resetButton.setLocation(500, 200);
-            resetButton.addActionListener(e -> {
-
-              JFrame jFrame=new JFrame("you are winner");
-              jFrame.setVisible(true);
-              jFrame.setSize(1000,700);
-
-            });
-            this.add(resetButton);
-            //this.add(gameMain);
 
 
+         return false;
         }
+
+
+        private void resetPlayerAndEnemiesAfterCollision(){
+        this.player.setX(Constants.PLAYER_X);
+        this.player.setY(Constants.PLAYER_Y);
+        this.enemy1.setX(Constants.ENEMY1_X);
+        this.enemy1.setY(Constants.ENEMY1_Y);
+        this.enemy2.setX(Constants.ENEMY2_X);
+        this.enemy2.setY(Constants.ENEMY1_Y);
+        this.enemy3.setX(Constants.ENEMY3_X);
+        this.enemy3.setY(Constants.ENEMY3_Y);
+        this.enemy4.setX(Constants.ENEMY4_X);
+        this.enemy4.setY(Constants.ENEMY4_Y);
+        this.enemy5.setX(Constants.ENEMY4_X);
+        this.enemy5.setY(Constants.ENEMY4_Y);
+        this.enemy6.setX(Constants.ENEMY5_X);
+        this.enemy6.setY(Constants.ENEMY5_Y);
+        this.enemy7.setX(Constants.ENEMY6_X);
+        this.enemy7.setY(Constants.ENEMY6_Y);
+
+
+
     }
 
 
 
-          */
+
+/*
+                Object[] options = {"Yes", "No", "ask later"};
+                int n = JOptionPane.showOptionDialog(this, "You Won Do You want to start over", null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+                if (n == 1) {
+                    System.exit(0);
+                } else if (n == 0) {
+
+
+                }
+
+ */
+            }
+
 
           /* Object[] options = {"Yes", "No", "ask later"};
             int n = JOptionPane.showOptionDialog(this, "You Won Do You want to start over", null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
@@ -217,49 +283,5 @@ public class SecondLevel extends JPanel  {
            */    // System.exit(0);
         //} else if (n == 0) {
 
-/*
-        @Override
-        public void actionPerformed (ActionEvent e){
-            resetButton = (JButton) e.getSource();
-
-            System.out.println("Frame Closed.");
-        }
-    }
-/*
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == resetButton) {
-            this.remove(this.gameMain);
-            gameMain = new GameMain();
-            this.add(gameMain);
-            SwingUtilities.updateComponentTreeUI(this);
-    }
-              /*
-        }
-
-               */
-        //}
-        //}
 
 
-     /*   @Override
-        public void actionPerformed (ActionEvent e){
-           JButton resetButton = new JButton();
-            resetButton.setText("reset");
-            resetButton.setSize(100, 50);
-            resetButton.setLocation(0, 200);
-            resetButton.addActionListener(this);
-            this.add(resetButton);
-            if (e.getSource() == resetButton) {
-                this.remove(this.gameMain);
-                GameMain game = new GameMain();
-                this.add(game);
-                SwingUtilities.updateComponentTreeUI(this);
-            }
-
-        }
-
-      */
-
-
-    }

@@ -26,10 +26,18 @@ public class Constants {
     public static final int ALIEN_X=500;
     public static final int ALIEN_Y=50;
     public static final int ALIEN_SIZE_LEVEL1=100;
-    public static final int ALIEN_SIZE_LEVEL2=50;
+    public static final int ALIEN_SIZE_LEVEL2=100;
     public static final int FIRST_LEVEL=1;
     public static final int SECOND_LEVEL=2;
     public static final int ENEMY_SPEED = 3;
+    public static final int RESTART_THE_GAME=3;
+    public static final int ENEMY5_X=70;
+    public static final int ENEMY5_Y =200;
+    public static final int ENEMY6_X=400;
+    public static final int ENEMY6_Y =500;
+    public static final int ENEMY7_X=500;
+    public static final int ENEMY7_Y =350;
+    public static final int ENEMY_SIZE =90;
 
 
 

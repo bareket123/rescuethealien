@@ -3,21 +3,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameMain extends JFrame implements ActionListener {
-    JButton resetButton;
+public class GameMain extends JFrame implements ActionListener  {
     FirstLevel firstLevel;
+
     //private ImageIcon backGround=new ImageIcon("C:/Users/barek/IdeaProjects/final vertion of the game/images/space.jpg");
     public static void main(String[] args) {
-      GameMain gameMain = new GameMain();
+        GameMain gameMain = new GameMain();
 
 
     }
-
-
-
-
-
-
 
 
     private static void optionPaneExample() {
@@ -25,13 +19,14 @@ public class GameMain extends JFrame implements ActionListener {
         JFrame instruction = new JFrame();
         startButton.setLocationRelativeTo(null);
         instruction.setLocationRelativeTo(null);
-        JOptionPane.showMessageDialog(startButton, "Hello, Welcome to 'ESCAPE'.");
+        JOptionPane.showMessageDialog(startButton, "Hello, Welcome to 'RESCUE THE '.");
         JOptionPane.showMessageDialog(instruction, "The rules are simple: " +
                 "*You can not get out of the frame" +
                 "\n *You must avoid the enemies" +
                 "\n* in order to win the game you need to escape through the exit hole");
     }
-    public GameMain(){
+
+    public GameMain() {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
@@ -40,8 +35,8 @@ public class GameMain extends JFrame implements ActionListener {
         this.setTitle("Rescue Alien");
         this.setResizable(false);
 
-        FirstLevel firstLevel= new FirstLevel();
-        firstLevel.setBounds(0,0,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
+        FirstLevel firstLevel = new FirstLevel();
+        firstLevel.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         this.add(firstLevel);
         PlayerMovement playerMovement = new PlayerMovement(firstLevel.getPlayer());
         this.addKeyListener(playerMovement);
@@ -53,7 +48,7 @@ public class GameMain extends JFrame implements ActionListener {
         this.add(resetButton);
         this.setVisible(true);
 
-        /*   @Override
+           @Override
         public void actionPerformed (ActionEvent e){
            JButton resetButton = new JButton();
             resetButton.setText("reset");
@@ -81,7 +76,7 @@ public class GameMain extends JFrame implements ActionListener {
 
 
 
-
+/*
 
 
     }
@@ -95,6 +90,15 @@ public class GameMain extends JFrame implements ActionListener {
             SwingUtilities.updateComponentTreeUI(this);
         }
 
+
+    }
+}
+
+ */
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }
